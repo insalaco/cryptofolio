@@ -15,7 +15,8 @@ class AssetsController < ApplicationController
 
   # GET /assets/new
   def new
-    @asset = Asset.new
+    @user = current_user
+    @asset = @user.assets.new
   end
 
   # GET /assets/1/edit
@@ -25,7 +26,8 @@ class AssetsController < ApplicationController
   # POST /assets
   # POST /assets.json
   def create
-    @asset = Asset.new(asset_params)
+    @user = current_user
+    @asset = @user.assets.build(asset_params)
     
     respond_to do |format|
       if @asset.save
