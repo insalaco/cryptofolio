@@ -2,9 +2,17 @@ class AssetsController < ApplicationController
   before_action :set_asset, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  require 'net/http'
+  require 'json'
+
   # GET /assets
   # GET /assets.json
   def index
+    @url = 'https://api.coinmarketcap.com/v1/ticker/'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @lookup_coin = JSON.parse(@response)
+
     @assets = Asset.all
   end
 

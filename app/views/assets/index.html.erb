@@ -1,26 +1,30 @@
 <h1>Assets</h1>
 
-<table>
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
+      <th>Name</th>
       <th>Symbol</th>
-      <th>User</th>
       <th>Cost per</th>
       <th>Amount owned</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @assets.each do |asset| %>
       <tr>
+        <td>       
+        <% for x in @lookup_coin %>
+          <% if asset.symbol == x["symbol"] %>
+          <%= x["name"] %>
+          <% end %>
+        <% end %>
+        </td>
         <td><%= asset.symbol %></td>
-        <td><%= asset.user %></td>
         <td><%= asset.cost_per %></td>
         <td><%= asset.amount_owned %></td>
-        <td><%= link_to 'Show', asset %></td>
-        <td><%= link_to 'Edit', edit_asset_path(asset) %></td>
-        <td><%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', asset %> | <%= link_to 'Edit', edit_asset_path(asset) %> | <%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Asset', new_asset_path %>
+<%= link_to 'New Asset', new_asset_path, class: "btn btn-primary" %>
