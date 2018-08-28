@@ -1,0 +1,24 @@
+
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @asset.symbol %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @asset.user %>
+</p>
+
+<p>
+  <strong>Cost per:</strong>
+  <%= @asset.cost_per %>
+</p>
+
+<p>
+  <strong>Amount owned:</strong>
+  <%= @asset.amount_owned %>
+</p>
+
+<%= link_to 'Edit', edit_asset_path(@asset) %> |
+<%= link_to 'Back', assets_path %>
