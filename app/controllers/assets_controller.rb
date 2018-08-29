@@ -8,6 +8,7 @@ class AssetsController < ApplicationController
   # GET /assets
   # GET /assets.json
   def index
+    @profit_loss = 0
     @url = 'https://api.coinmarketcap.com/v1/ticker/'
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)

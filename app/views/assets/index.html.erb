@@ -1,11 +1,16 @@
+
 <h1>Assets</h1>
 
 <table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Symbol</th>
-      <th>Cost per</th>
+      <th>Current Price</th>
+      <th>Rank</th>
+      <th>Current Value</th>
+      <th>Total Paid</th>
+      <th>Profit / Loss</th>
+      <th>Cost Paid Per</th>
       <th>Amount owned</th>
       <th>Actions</th>
     </tr>
@@ -13,23 +18,29 @@
 
   <tbody>
     <% @assets.each do |asset| %>
-      <tr>
-        <td>       
+      <tr>              
         <% for x in @lookup_coin %>
           <% if asset.symbol == x["symbol"] %>
-          <%= x["name"] %>
+          <td> <%= x["name"] %> <small>(<%= asset.symbol %>)</small></td>
+          <td> $<%= x["price_usd"] %></td>
+          <td> <%= x["rank"] %></td>
+          <td> $<%= x["price_usd"].to_d * asset.amount_owned %></td>
+          <td> $<%= asset.cost_per * asset.amount_owned %> </td>
+          <td> $<%= (x["price_usd"].to_d * asset.amount_owned) - (asset.cost_per * asset.amount_owned )  %> </td>
+          <% @profit_loss += (x["price_usd"].to_d * asset.amount_owned) - (asset.cost_per * asset.amount_owned )  %>
           <% end %>
         <% end %>
-        </td>
-        <td><%= asset.symbol %></td>
-        <td><%= asset.cost_per %></td>
+        
+        <td>$<%= asset.cost_per %></td>
         <td><%= asset.amount_owned %></td>
-        <td><%= link_to 'Show', asset %> | <%= link_to 'Edit', edit_asset_path(asset) %> | <%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', asset %> </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<p>Total Profit/Loss: <%= number_to_currency(@profit_loss) %></p>
 
 <%= link_to 'New Asset', new_asset_path, class: "btn btn-primary" %>
